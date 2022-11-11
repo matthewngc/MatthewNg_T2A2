@@ -11,14 +11,14 @@ def all_games():
     games = db.session.scalars(stmt)
     return GameSchema(many=True).dump(games)
 
-@games_bp.route('/<int:id>')
-def one_game(id):
-    stmt = db.select(Game).filter_by(id=id)
+@games_bp.route('/<int:game_id>')
+def one_game(game_id):
+    stmt = db.select(Game).filter_by(id=game_id)
     game = db.session.scalar(stmt)
     if game:
         return GameSchema().dump(game)
     else:
-        return {'error': f'Game not found with id {id}'}, 404
+        return {'error': f'Game not found with id {game_id}'}, 404
 
 @games_bp.route('/', methods = ['POST'])
 def add_game():
@@ -34,9 +34,9 @@ def add_game():
     db.session.commit()
     return GameSchema().dump(game), 201
 
-@games_bp.route('/<int:id>', methods = ['PUT', 'PATCH'])
-def update_one_game(id):
-    stmt = db.select(Game).filter_by(id=id)
+@games_bp.route('/<int:game_id>', methods = ['PUT', 'PATCH'])
+def update_one_game(game_id):
+    stmt = db.select(Game).filter_by(id=game_id)
     game = db.session.scalar(stmt)
     if game:
         game.title = request.json.get('title') or game.title
@@ -47,15 +47,19 @@ def update_one_game(id):
         db.session.commit()
         return GameSchema().dump(game)
     else:
-        return {'error': f'Card not found with id {id}'}, 404
+        return {'error': f'Card not found with id {game_id}'}, 404
 
-@games_bp.route('<int:id>', methods=['DELETE'])
-def delete_one_card(id):
-    stmt = db.select(Game).filter_by(id=id)
+@games_bp.route('<int:game_id>', methods=['DELETE'])
+def delete_one_card(game_id):
+    stmt = db.select(Game).filter_by(id=game_id)
     game = db.session.scalar(stmt)
     if game:
         db.session.delete(game)
         db.session.commit()
         return {'message': f'Game "{game.title}" has been deleted successfully'}
     else:
-        return {'error': f'Game not found with id "{id}'}, 404
+        return {'error': f'Game not found with id "{game_id}'}, 404
+
+# @games_bp.route('<int:game_id>/notes/')
+# def all_notes_on_game(game_id):
+#     stmt = db.select(Game).filter_by(id=game_id)
