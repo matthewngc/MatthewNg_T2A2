@@ -33,3 +33,18 @@ def add_game():
     db.session.add(game)
     db.session.commit()
     return GameSchema().dump(game), 201
+
+@games_bp.route('/<int:id>', methods = ['PUT', 'PATCH'])
+def update_one_game(id):
+    stmt = db.select(Game).filter_by(id=id)
+    game = db.session.scalar(stmt)
+    if game:
+        game.title = request.json.get('title') or game.title
+        game.year_released = request.json.get('year_released') or game.year_released
+        game.genre = request.json.get('genre') or game.genre
+        game.platform = request.json.get('platform') or game.platform
+        game.status = request.json.get('status') or game.status
+        db.session.commit()
+        return GameSchema().dump(game)
+    else:
+        return {'error': f'Card not found with id {id}'}, 404
