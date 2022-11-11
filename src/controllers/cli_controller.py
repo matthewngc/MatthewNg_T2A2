@@ -1,6 +1,7 @@
-from init import db
+from init import db, bcrypt
 from flask import Blueprint
 from models.game import Game
+from models.user import User
 from datetime import date
 
 db_commands = Blueprint('db', __name__)
@@ -17,6 +18,23 @@ def drop_db():
 
 @db_commands.cli.command('seed')
 def seed_db():
+    users = [
+        User(
+            email = 'admin@gametracker.com',
+            password = bcrypt.generate_password_hash('admin123').decode('utf-8'),
+            is_admin = True
+        ),
+        User(
+            name = 'Cameron Johnson',
+            email = 'camjohnson@abc.com',
+            password = bcrypt.generate_password_hash('bballxyz').decode('utf-8'),
+            date_joined = '10/10/2020'
+        )
+    ]
+
+    db.session.add_all(users)
+    db.session.commit()
+
     games = [
         Game(
             title = 'God of War Ragnarok',
