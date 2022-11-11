@@ -48,3 +48,14 @@ def update_one_game(id):
         return GameSchema().dump(game)
     else:
         return {'error': f'Card not found with id {id}'}, 404
+
+@games_bp.route('<int:id>', methods=['DELETE'])
+def delete_one_card(id):
+    stmt = db.select(Game).filter_by(id=id)
+    game = db.session.scalar(stmt)
+    if game:
+        db.session.delete(game)
+        db.session.commit()
+        return {'message': f'Game "{game.title}" has been deleted successfully'}
+    else:
+        return {'error': f'Game not found with id "{id}'}, 404
