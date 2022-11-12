@@ -13,7 +13,6 @@ def create_app():
     # Create Flask instance
 
     app = Flask(__name__)
-
     # App configurations
     # Allows json objects to be ordered where specified
     app.config['JSON_SORT_KEYS'] = False
@@ -62,5 +61,6 @@ def create_app():
     def key_error(err):
         return {'error': f'The field {err} is required.'}, 400
     
+
     return app
 

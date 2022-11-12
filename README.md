@@ -8,6 +8,8 @@
 
 ## Table of Contents
 
+[**Installation Instructions**](#installation-instructions)
+
 [**Purpose of this API Webserver (R1)**](#purpose-of-this-api-webserver-r1)
 
 [**Why is it a problem that needs solving? (R2)**](#why-is-it-a-problem-that-needs-solving-r2)
@@ -28,7 +30,28 @@
 
 [**Task Allocation & Tracking (R10)**](#task-allocation--tracking-r10)
 
-## Purpose of this API Webserver. (R1)
+
+## Installation Instructions
+
+1. Open the terminal and create a new directory
+
+2. Move into the directory and clone this repository using the following command:
+
+   ```git clone https://github.com/matthewngc/MatthewNg_T2A2```
+
+3. Move into the src folder and activate a virtual environment using the following commands:
+
+    ```python3 -m venv .venv```
+
+    ```source .venv/bin/activate```
+
+4. Install the required dependencies using the following command:
+
+   ```pip install -r requirements.txt```
+
+5. Open PostgreSQL in your terminal and create a new database named 'gametracker
+
+## Purpose of this API Webserver (R1)
 
 ---
 
@@ -77,3 +100,7 @@ For most individuals who enjoy playing videogames, a common issue is being able 
 ## Task Allocation & Tracking (R10)
 
 ---
+
+To manage tracking and allocation of tasks, Trello was used for this project. After creating a board, four lists were created for the different stages of each component of the project: 'To Do', 'Ongoing', 'Testing' and 'Done'. Labels were also created for priority ('Low', 'Medium', 'High'), as well as the nature of the task ('Planning', 'Coding', 'Documentation').
+
+[Link to Trello Board](https://trello.com/invite/b/Q4vCldYy/ATTI539bc741fc769e94128abb448f1fb7e288AF73A9/t2a2-api-webserver-project)
