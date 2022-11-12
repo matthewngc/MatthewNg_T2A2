@@ -9,7 +9,7 @@ users_bp = Blueprint('users',__name__, url_prefix='/users')
 #================================================= USERS =================================================
 
 
-@users_bp.route('profile')
+@users_bp.route('/profile/')
 @jwt_required()
 def get_user():
     stmt = db.select(User).filter_by(id=get_jwt_identity())
@@ -17,9 +17,9 @@ def get_user():
     if user:
         return UserSchema(exclude=['password']).dump(user)
 
-@users_bp.route('update', methods=['PUT', 'PATCH'])
+@users_bp.route('/update/', methods=['PUT', 'PATCH'])
 @jwt_required()
-def update_user():
+def update_profile():
     stmt = db.select(User).filter_by(id=get_jwt_identity())
     user = db.session.scalar(stmt)
     if user:
