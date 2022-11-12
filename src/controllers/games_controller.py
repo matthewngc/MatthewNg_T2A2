@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from init import db
 from models.game import Game, GameSchema
+from models.note import Note, NoteSchema
 from datetime import date
 
 games_bp = Blueprint('games', __name__, url_prefix = '/games')
@@ -34,7 +35,7 @@ def add_game():
     db.session.commit()
     return GameSchema().dump(game), 201
 
-@games_bp.route('/<int:game_id>', methods = ['PUT', 'PATCH'])
+@games_bp.route('/<int:game_id>/', methods = ['PUT', 'PATCH'])
 def update_one_game(game_id):
     stmt = db.select(Game).filter_by(id=game_id)
     game = db.session.scalar(stmt)
@@ -49,7 +50,7 @@ def update_one_game(game_id):
     else:
         return {'error': f'Card not found with id {game_id}'}, 404
 
-@games_bp.route('<int:game_id>', methods=['DELETE'])
+@games_bp.route('/<int:game_id>/', methods=['DELETE'])
 def delete_one_card(game_id):
     stmt = db.select(Game).filter_by(id=game_id)
     game = db.session.scalar(stmt)
@@ -60,6 +61,17 @@ def delete_one_card(game_id):
     else:
         return {'error': f'Game not found with id "{game_id}'}, 404
 
-# @games_bp.route('<int:game_id>/notes/')
-# def all_notes_on_game(game_id):
-#     stmt = db.select(Game).filter_by(id=game_id)
+@games_bp.route('/<int:game_id>/notes/')
+def all_notes_on_game(game_id):
+    stmt = db.select(Note).filter_by(id=game_id)
+    notes = db.session.scalars(stmt)
+    if notes:
+        return NoteSchema(many=True, exclude = ['game']).dump(notes)
+
+@games_bp.route('/notes/<int:note_id>/')
+def get_one_note(note_id):
+    stmt = db.select(Note).filter_by(id = note_id)
+    note = db.session.scalar(stmt)
+    if note:
+        return NoteSchema().dump(note)
+
