@@ -4,6 +4,7 @@ from controllers.cli_controller import db_commands
 from controllers.games_controller import games_bp
 from controllers.auth_controller import auth_bp
 from controllers.users_controller import users_bp
+from controllers.admin_controller import admin_bp
 import os
 
 def create_app():
@@ -22,10 +23,15 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(db_commands)
     app.register_blueprint(users_bp)
+    app.register_blueprint(admin_bp)
 
     @app.errorhandler(401)
     def unauthorized(err):
         return {'error': 'You do not have the appropriate permissions to perform this action.'}, 401
 
+    @app.errorhandler(404)
+    def not_found(err):
+        return {'error': str(err)}, 404
+        
     return app
 

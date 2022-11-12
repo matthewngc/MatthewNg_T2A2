@@ -65,7 +65,7 @@ def update_one_game(game_id):
         db.session.commit()
         return GameSchema().dump(game)
     else:
-        return {'error': f'Card not found with id {game_id}'}, 404
+        return {'error': f'Game not found with id {game_id}'}, 404
 
 # ~~~~~~~ DELETE: Delete game from tracker ~~~~~~~
 
