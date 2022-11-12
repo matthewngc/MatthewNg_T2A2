@@ -107,6 +107,18 @@ def create_note(game_id):
 @games_bp.route('/notes/<int:note_id>', methods = ['PUT', 'PATCH'])
 @jwt_required()
 def edit_note(note_id):
+    stmt = db.select(Note).where(and_(
+        Note.id == note_id,
+        Note.user_id == get_jwt_identity()
+    ))
+    note = db.session.scalar(stmt)
+    if note:
+        note.description = request.json.get('description') or note.description
+        note.tag = request.json.get('tag') or note.tag
+        db.session.commit()
+        return NoteSchema().dump(note)
+    else:
+        return {'error': f'Note not found with id {note_id}'}
 
 @games_bp.route('/notes/<int:note_id>/', methods = ['DELETE'])
 @jwt_required()
@@ -114,7 +126,7 @@ def delete_note(note_id):
     stmt = db.select(Note).where(and_(
         Note.id == note_id, 
         Note.user_id == get_jwt_identity()
-        ))
+    ))
     note = db.session.scalar(stmt)
     if note:
         db.session.delete(note)
