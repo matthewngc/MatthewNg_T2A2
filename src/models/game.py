@@ -1,4 +1,5 @@
 from init import db, ma
+from marshmallow import fields
 
 class Game(db.Model):
     __tablename__ = 'games'
@@ -11,7 +12,14 @@ class Game(db.Model):
     date_tracked = db.Column(db.Date)
     status = db.Column(db.String)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    
+    user = db.relationship('User', back_populates='games')
+    notes = db.relationship('Note', back_populates='game', cascade = 'all, delete')
+
 class GameSchema(ma.Schema):
+    user = fields.Nested('UserScchema', only=['name', 'email'])
+    notes = fields.List(fields.Nested('NoteSchema', exclude = ['game']))
     class Meta:
         fields = ('id', 'title', 'year_released', 'genre', 'platform', 'date_tracked', 'status')
         ordered = True
