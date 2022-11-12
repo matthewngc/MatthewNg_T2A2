@@ -5,14 +5,23 @@ from models.note import Note, NoteSchema
 from datetime import date
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from sqlalchemy import and_
+from controllers.auth_controller import authorize
 
 games_bp = Blueprint('games', __name__, url_prefix = '/games')
+
+#================================================= GAMES =================================================
+
+# GAME CONTROLLERS - GET, POST, PUT/PATCH, DELETE
+
+# ~~~~~~~ READ: Retrieve information on all games ~~~~~~~
 
 @games_bp.route('/')
 def all_games():
     stmt = db.select(Game)
     games = db.session.scalars(stmt)
     return GameSchema(many=True).dump(games)
+
+# ~~~~~~~ READ: Retrieve information for one game ~~~~~~~
 
 @games_bp.route('/<int:game_id>/')
 def one_game(game_id):
@@ -22,6 +31,8 @@ def one_game(game_id):
         return GameSchema().dump(game)
     else:
         return {'error': f'Game not found with id {game_id}'}, 404
+
+# ~~~~~~~ CREATE: Add game to tracker ~~~~~~~
 
 @games_bp.route('/', methods = ['POST'])
 @jwt_required()
@@ -39,6 +50,8 @@ def add_game():
     db.session.commit()
     return GameSchema().dump(game), 201
 
+# ~~~~~~~ UPDATE: Update game details ~~~~~~~
+
 @games_bp.route('/<int:game_id>/', methods = ['PUT', 'PATCH'])
 def update_one_game(game_id):
     stmt = db.select(Game).filter_by(id=game_id)
@@ -54,16 +67,40 @@ def update_one_game(game_id):
     else:
         return {'error': f'Card not found with id {game_id}'}, 404
 
+# ~~~~~~~ DELETE: Delete game from tracker ~~~~~~~
+
+# @games_bp.route('/<int:game_id>/', methods=['DELETE'])
+# @jwt_required()
+# def delete_one_card(game_id):
+#     stmt = db.select(Game).where(and_(
+#         Game.id == game_id,
+#         Game.user_id == get_jwt_identity()
+#     ))
+#     game = db.session.scalar(stmt)
+#     if game:
+#         db.session.delete(game)
+#         db.session.commit()
+#         return {'message': f'Game "{game.title}" has been deleted successfully'}
+#     else:
+#         return {'error': f'Game not found with id "{game_id}'}, 404
+
 @games_bp.route('/<int:game_id>/', methods=['DELETE'])
+@jwt_required()
 def delete_one_card(game_id):
-    stmt = db.select(Game).filter_by(id=game_id)
+    stmt = db.select(Game).filter_by(id = game_id)
     game = db.session.scalar(stmt)
-    if game:
+    if not game:
+        return {'error': f'Game not found with id "{game_id}'}, 404
+    if authorize() or game.user_id == get_jwt_identity:
         db.session.delete(game)
         db.session.commit()
         return {'message': f'Game "{game.title}" has been deleted successfully'}
     else:
-        return {'error': f'Game not found with id "{game_id}'}, 404
+        return {'error': 'You do not have permission to delete this game.'}
+
+#================================================= NOTES =================================================
+
+# ~~~~~~~ READ: Retrieve all notes on a game ~~~~~~~
 
 @games_bp.route('/<int:game_id>/notes/')
 def all_notes_on_game(game_id):
@@ -77,6 +114,7 @@ def all_notes_on_game(game_id):
         return {'message': f'No notes found under {game.title}'}
     return NoteSchema(many=True, exclude = ['game']).dump(notes)
 
+# ~~~~~~~ READ: Retrieve one note ~~~~~~~
 
 @games_bp.route('/notes/<int:note_id>/')
 def get_one_note(note_id):
@@ -84,6 +122,8 @@ def get_one_note(note_id):
     note = db.session.scalar(stmt)
     if note:
         return NoteSchema().dump(note)
+
+# ~~~~~~~ CREATE: Add a note for a game ~~~~~~~
 
 @games_bp.route('/<int:game_id>/notes/', methods = ['POST'])
 @jwt_required()
@@ -104,6 +144,8 @@ def create_note(game_id):
     else:
         return {'error': f'Game not found with id {game_id}'}, 404
 
+# ~~~~~~~ UPDATE: Upate a note ~~~~~~~
+
 @games_bp.route('/notes/<int:note_id>', methods = ['PUT', 'PATCH'])
 @jwt_required()
 def edit_note(note_id):
@@ -120,17 +162,23 @@ def edit_note(note_id):
     else:
         return {'error': f'Note not found with id {note_id}'}
 
+# ~~~~~~~ DELETE: Delete a note ~~~~~~~
+
 @games_bp.route('/notes/<int:note_id>/', methods = ['DELETE'])
 @jwt_required()
 def delete_note(note_id):
-    stmt = db.select(Note).where(and_(
-        Note.id == note_id, 
-        Note.user_id == get_jwt_identity()
-    ))
+    stmt = db.select(Note).filter_by(id = note_id)
     note = db.session.scalar(stmt)
-    if note:
+    if not note:
+        return {'error': f'No comment found with id {note_id}'}
+    if authorize() or note.user_id == get_jwt_identity:
         db.session.delete(note)
         db.session.commit()
         return 'This comment has been deleted.'
-    return {'error': 'This comment does not exist, or you do not have permission to delete this comment.'}
+    return {'error': 'You do not have permission to delete this comment.'}
 
+@games_bp.route('/test/')
+@jwt_required()
+def test():
+    print(get_jwt_identity())
+    return {}

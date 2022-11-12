@@ -6,7 +6,10 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 
 users_bp = Blueprint('users',__name__, url_prefix='/users')
 
-@users_bp.route('myprofile')
+#================================================= USERS =================================================
+
+
+@users_bp.route('profile')
 @jwt_required()
 def get_user():
     stmt = db.select(User).filter_by(id=get_jwt_identity())
