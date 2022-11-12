@@ -23,5 +23,9 @@ def create_app():
     app.register_blueprint(db_commands)
     app.register_blueprint(users_bp)
 
+    @app.errorhandler(401)
+    def unauthorized(err):
+        return {'error': 'You do not have the appropriate permissions to perform this action.'}, 401
+
     return app
 

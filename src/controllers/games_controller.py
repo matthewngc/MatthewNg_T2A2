@@ -95,8 +95,6 @@ def delete_one_card(game_id):
         db.session.delete(game)
         db.session.commit()
         return {'message': f'Game "{game.title}" has been deleted successfully'}
-    else:
-        return {'error': 'You do not have permission to delete this game.'}
 
 #================================================= NOTES =================================================
 
@@ -110,7 +108,7 @@ def all_notes_on_game(game_id):
         return {'error': f'Game not found with id {game_id}'}, 404
     stmt = db.select(Note).filter_by(game_id=game_id)
     notes = db.session.scalars(stmt)
-    if notes == ['']:
+    if not notes:
         return {'message': f'No notes found under {game.title}'}
     return NoteSchema(many=True, exclude = ['game']).dump(notes)
 
@@ -175,7 +173,6 @@ def delete_note(note_id):
         db.session.delete(note)
         db.session.commit()
         return 'This comment has been deleted.'
-    return {'error': 'You do not have permission to delete this comment.'}
 
 @games_bp.route('/test/')
 @jwt_required()
