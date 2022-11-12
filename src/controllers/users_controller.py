@@ -17,7 +17,7 @@ def get_user():
     if user:
         return UserSchema(exclude=['password']).dump(user)
 
-@users_bp.route('/update/', methods=['PUT', 'PATCH'])
+@users_bp.route('/profile/', methods=['PUT', 'PATCH'])
 @jwt_required()
 def update_profile():
     stmt = db.select(User).filter_by(id=get_jwt_identity())

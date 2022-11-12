@@ -37,13 +37,14 @@ def one_game(game_id):
 @games_bp.route('/', methods = ['POST'])
 @jwt_required()
 def add_game():
+    data = GameSchema().load(request.json)
     game = Game(
-        title = request.json['title'],
-        year_released = request.json['year_released'],
-        genre = request.json['genre'],
-        platform = request.json['platform'],
+        title = data['title'],
+        year_released = data['year_released'],
+        genre = data['genre'],
+        platform = data['platform'],
         date_tracked = date.today(),
-        status = request.json['status'],
+        status = data['status'],
         user_id = get_jwt_identity()
     )
     db.session.add(game)
@@ -68,21 +69,6 @@ def update_one_game(game_id):
         return {'error': f'Game not found with id {game_id}'}, 404
 
 # ~~~~~~~ DELETE: Delete game from tracker ~~~~~~~
-
-# @games_bp.route('/<int:game_id>/', methods=['DELETE'])
-# @jwt_required()
-# def delete_one_card(game_id):
-#     stmt = db.select(Game).where(and_(
-#         Game.id == game_id,
-#         Game.user_id == get_jwt_identity()
-#     ))
-#     game = db.session.scalar(stmt)
-#     if game:
-#         db.session.delete(game)
-#         db.session.commit()
-#         return {'message': f'Game "{game.title}" has been deleted successfully'}
-#     else:
-#         return {'error': f'Game not found with id "{game_id}'}, 404
 
 @games_bp.route('/<int:game_id>/', methods=['DELETE'])
 @jwt_required()
@@ -129,10 +115,11 @@ def create_note(game_id):
     stmt = db.select(Game).filter_by(id=game_id)
     game = db.session.scalar(stmt)
     if game:
+        data = NoteSchema().load(request.json)
         note = Note(
-            description = request.json['description'],
+            description = data['description'],
             date = date.today(),
-            tag = request.json['tag'],
+            tag = data['tag'],
             user_id = get_jwt_identity(),
             game = game
         )
