@@ -30,6 +30,12 @@ def seed_db():
             email = 'camjohnson@abc.com',
             password = bcrypt.generate_password_hash('bballxyz').decode('utf-8'),
             date_joined = '10/10/2020'
+        ),
+        User(
+            name = 'James White',
+            email = 'jameswhite@abc.com',
+            password = bcrypt.generate_password_hash('password').decode('utf-8'),
+            date_joined = '5/23/2021'
         )
     ]
 
@@ -44,7 +50,7 @@ def seed_db():
             platform = 'PS5',
             date_tracked = date.today(),
             status = 'Playing',
-            user_id = users[0].id
+            user_id = users[2].id
         ),
         Game(
             title = 'Red Dead Redemption 2',
@@ -62,7 +68,7 @@ def seed_db():
             platform = 'Switch',
             date_tracked = date.today(),
             status = 'Want to Play',
-            user_id = users[0].id
+            user_id = users[2].id
         )
     ]
 
@@ -74,14 +80,14 @@ def seed_db():
         Note(
             description = 'This is a good game',
             tag = 'Review',
-            user = users[0],
+            user = users[1],
             game = games[1],
             date = date.today(),
         ),
         Note(
             description = 'Up to second bossfight',
             tag = 'Progress',
-            user = users[1],
+            user = users[2],
             game = games[0],
             date = date.today()
         ),

@@ -18,8 +18,8 @@ class Game(db.Model):
     notes = db.relationship('Note', back_populates='game', cascade = 'all, delete')
 
 class GameSchema(ma.Schema):
-    user = fields.Nested('UserScchema', only=['name', 'email'])
+    user = fields.Nested('UserSchema', only=['name', 'email'])
     notes = fields.List(fields.Nested('NoteSchema', exclude = ['game']))
     class Meta:
-        fields = ('id', 'title', 'year_released', 'genre', 'platform', 'date_tracked', 'status')
+        fields = ('id', 'title', 'year_released', 'genre', 'platform', 'date_tracked', 'status', 'user', 'notes')
         ordered = True

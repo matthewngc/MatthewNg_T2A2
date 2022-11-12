@@ -16,6 +16,9 @@ class Note(db.Model):
     game = db.relationship('Game', back_populates='notes')
 
 class NoteSchema(ma.Schema):
+    user = fields.Nested('UserSchema', only = ['name', 'email'])
+    game = fields.Nested('GameSchema')
+    
     class Meta:
         fields = ('id', 'description', 'date', 'tag', 'game', 'user')
         ordered = True
