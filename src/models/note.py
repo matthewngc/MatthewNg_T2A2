@@ -8,7 +8,7 @@ class Note(db.Model):
     __tablename__ = 'notes'
 
     id = db.Column(db.Integer, primary_key = True)
-    description = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(1000), nullable=False)
     date = db.Column(db.Date)
     tag = db.Column(db.String, default = VALID_TAGS[1])
 

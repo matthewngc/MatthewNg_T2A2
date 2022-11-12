@@ -2,11 +2,15 @@ from init import db, ma
 from marshmallow import fields
 from marshmallow.validate import OneOf, Length
 
+# Assign list of valid statuses for validation
 VALID_STATUSES = ('Currently Playing', 'Completed', 'Dropped', 'On Hold', 'Want To Play')
 
+# Create Game model
 class Game(db.Model):
+    # Define table name for games model
     __tablename__ = 'games'
 
+    # Define the attributes of the table
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable = False)
     year_released = db.Column(db.String)

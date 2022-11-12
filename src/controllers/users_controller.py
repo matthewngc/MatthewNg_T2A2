@@ -8,6 +8,7 @@ users_bp = Blueprint('users',__name__, url_prefix='/users')
 
 #================================================= USERS =================================================
 
+# ~~~~~~~ Read user profile ~~~~~~~
 
 @users_bp.route('/profile/')
 @jwt_required()
@@ -16,6 +17,8 @@ def get_user():
     user = db.session.scalar(stmt)
     if user:
         return UserSchema(exclude=['password']).dump(user)
+
+# ~~~~~~~ Update user profile ~~~~~~~
 
 @users_bp.route('/profile/', methods=['PUT', 'PATCH'])
 @jwt_required()

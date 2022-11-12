@@ -46,6 +46,8 @@ For most individuals who enjoy playing videogames, a common issue is being able 
 
 ---
 
+
+
 ## Key Functionalities and Benefits of an ORM (R4)
 
 ---
@@ -57,6 +59,8 @@ For most individuals who enjoy playing videogames, a common issue is being able 
 ## Entity Relationship Diagram (ERD) (R6)
 
 ---
+
+![ERD](docs/erd.png)
 
 ## Third Party Services & Packages Used (R7)
 
