@@ -144,6 +144,7 @@ def delete_user(user_id):
         return {
             'message': 'You have successfully deleted this user.',
             'user_id': user_id,
+            'name': user.name,
             'email': user.email
         }
     # If user with user id not found, return error message

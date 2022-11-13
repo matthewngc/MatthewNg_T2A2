@@ -28,7 +28,7 @@ class UserSchema(ma.Schema):
     notes = fields.List(fields.Nested('NoteSchema', exclude = ['user']))
 
     email = fields.Email()
-    password = fields.String(required = True, validate= Length(min=1))
+    password = fields.String(validate= Length(min=1))
 
     class Meta:
         fields = ('id', 'name', 'email', 'password', 'date_joined', 'is_admin', 'games', 'notes')

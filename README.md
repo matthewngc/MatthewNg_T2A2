@@ -32,6 +32,8 @@
 
 [**References**](#references)
 
+---
+
 ## Installation Instructions
 
 ---
@@ -68,6 +70,8 @@
 
     ```flask run```
 
+---
+
 ## Purpose of this API Webserver (R1)
 
 ---
@@ -76,11 +80,15 @@ The purpose of this API Webserver is to allow users to track and record the vide
 
 This API application acts as a centralised hub where users can add games and include a tag to mark them as completed, currently in progress, dropped, shelved (temporarily), or plan to play, which allows them to easily track their game collection and history. Additionally, users can also add notes under each game as reviews, story progress, quest reminders and other information specific to these games. Overall, this API webserver provides an effective solution to game progress management.
 
+---
+
 ## Why is it a problem that needs solving? (R2)
 
 ---
 
 For most individuals who enjoy playing videogames, a common issue is being able to track the progress of the games they have played, particularly for those who prefer to switch between multiple games, or have commitments that make it difficult to finish a game. This leads to an excessive backlog of unfinished games, and most people may choose to give up on completing an unfinished game as they have forgotten about it, or losing interest due to a game's difficulty or a lack of an active community. This API webserver aims to not only provide a quality-of-life benefit to users to improve and enhance their gaming experience, but also create a collaborative environment for gaming communities to share their gaming experiences and history.
+
+---
 
 ## Why this database system was chosen, and its drawbacks (R3)
 
@@ -97,6 +105,8 @@ This project uses the PostgreSQL database system, which is a relational database
 However, some of the drawbacks with PostgreSQL relate mostly to its relational database structure, as most non-relational database management systems widely used in the industry are significantly faster in processing large amounts of data, at a lower system load. Additionally, PostgreSQL is not available by default on most computers and devices, and may require some guidance to install and use effectively.
 
 Considering all of the above, PostgreSQL was deemed most suitable for this project mainly due to its reliability, accessibility, ease of use, and compatible nature with most ORMs. The data that will be handled in this project is predictable, small in scale, and non-complex, making PostgreSQL the best option available.
+
+---
 
 ## Key Functionalities and Benefits of an ORM (R4)
 
@@ -124,7 +134,13 @@ Using an ORM, a developer can create a web application that can prevent users fr
 
 Additionally, the use of an ORM removes the need for boilerplate code, which increases the efficiency of the code, improves overall productivity, and minimizes the memory load of an application. Developers are also able to write code in their own preferred language, which allows the application to remain clean and consistent.
 
+---
+
 ## API Endpoints (R5)
+
+---
+
+[Documentation of API Endpoints](docs/API_endpoints.md)
 
 ---
 
@@ -133,6 +149,8 @@ Additionally, the use of an ORM removes the need for boilerplate code, which inc
 ---
 
 ![ERD](docs/erd.png)
+
+---
 
 ## Third Party Services & Packages Used (R7)
 
@@ -171,6 +189,8 @@ This projects utilises the following third party services and PyPI packages:
 - Other dependencies
 
   - There are additional dependencies that will be installed when installing the packages listed above. All packages and dependencies required for this API application have been frozen in the [requirements.txt](src/requirements.txt) file.
+
+---
 
 ## API Webserver Models & Relationships (R8)
 
@@ -223,6 +243,8 @@ game = db.relationship('Game', back_populates='notes')
 
 As established for the other models, the above snippets completes the associations between the Note model and the User and Game models.
 
+---
+
 ## Database Relations Implemented (R9)
 
 ---
@@ -240,6 +262,8 @@ In the ERD, the relations between each entity is represented through the crow's 
 - A user can add none or many notes to a game, however a note that has been added to a game is only associated with one user. As such, users have a zero or many relationship with notes, while a note has a only and only one relationship with a user.
 
 - A game can have none or many notes added to it, however a note that has been added to a game is only associated with one game. As such, games have a zero or many relationship with notes, while a note has a one and only one relationship with a game.
+
+---
 
 ## Task Allocation & Tracking (R10)
 
@@ -265,6 +289,8 @@ After all the cards are created, they are added to the board in the 'To Do' list
 
 ![trello_board](docs/trello.PNG)
 
+---
+
 ## References
 
 ---
@@ -284,10 +310,8 @@ https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a)
 
 SQLAlchemy. (n.d.). The Python SQL Toolkit and Object Relational Mapper. Retrieved November 13, 2022 from [https://www.sqlalchemy.org/](https://www.sqlalchemy.org/)
 
-
 Marshmallow. (n.d.). marshmallow: simplified object serialization. Retrieved November 13, 2022 from [https://marshmallow.readthedocs.io/en/stable/](https://marshmallow.readthedocs.io/en/stable/)
 
 JWT. (n.d.). Introduction to JSON Web Tokens. Retrieved November 13, 2022 from [https://jwt.io/introduction](https://jwt.io/introduction)
-
 
 Gupta, C. (2022, June 3). Hashing Passwords in Python with BCrypt. GeeksForGeeks. Retrieved November 13, 2022 from [https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/](https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/)
