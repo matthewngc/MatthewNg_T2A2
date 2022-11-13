@@ -138,21 +138,39 @@ Additionally, the use of an ORM removes the need for boilerplate code, which inc
 
 ---
 
-This projects utilises the following third party services and packages:
+This projects utilises the following third party services and PyPI packages:
 
-- SQLAlchemy
+- Flask-SQLAlchemy
+  
+  - SQLAlchemy is an SQL tookit and ORM written in Python that allows users to convert data from a relational database to Python objects. Flask-SQLAlchemy is an extension of Flask that provides support for SQLAlchemy in a Flask application. Flask-SQLAlchemy is used in this project to map tables from the database to a Python class object model, which can then be used to create, read, update and delete tables in the database.
 
 - Flask
 
+  - Flask is a web microframework that is used to create and develop web applications in Python. Flask allows users to easily build a simple web application in a single Python file, and does not require a specific directory structure, hence it is highly extensible. Flask is used in this project to set up the framework of the web application, and create routes that can receive web requests and send responses.
+
 - Marshmallow
+
+  - Marshmallow is an ORM library that allows the conversion of complex datatypes and objects to and from Python datatypes. Marshmallow can also be used to validate input data. Flask-Marshmallow is an extension to Flask that integrates Marshmallow with the Flask microframework. In this project, Marshmallow is used to transform JSON inputs into Python objects, as well as converting Python objects into valid JSON outputs. It is also used for data validation, where certain input fields must conform to a specified constraint.
 
 - Bcrypt
 
-- JWT Extended
+  - Bcrypt is a password-hashing function that is used to encrypt passwords before it is stored in the database. A password string is hashed, meaning it is passed through an algorithm to map it to an encrypted string. A fixed length random value known as a salt is added to each hash in order to create a unique hash for every password. This unique salt value is used to decrypt the password hashes stored within the database for the purposes of authentication. Flask-Bcrypt is an extension to Flask that incorporates the Bcrypt function within a web application. For this project, Flask-Bcrypt is used primarily for the purposes of password encryption and user authentication.
+
+- Flask-JWT-Extended
+
+  - Flask-JWT-Extended is a Flask extension that provides support to Flask for using JWT tokens in order to protect routes in the framework. A JWT token is generated upon user login, and is included with every subsequent request made by the user to the server in order to authenticate their identity. This can also be used for the purposes of authorization, such as verifying administrator privileges before the web application returns a response to a request. For this project, Flask-JWT-Extended is used to protect routes by ensuring that the user must be logged in to make certain requests, as well as verifying administrator privileges in order to access admin-only routes.
 
 - psycopg2
 
-- dotenv
+  - Psycopg is a PostgreSQL database adapter for the Python programming language. It is widely used in multi-threaded applications that handles a large number of create and delete operations, and concurrent insert or update operations to a PostgreSQL database. For this project, Psycopg was used to connect the Flask application to the PostgreSQL database, in order for the application to perform queries and operations on the database.
+
+- Python-dotenv
+
+  - Python-dotenv is a Python package that loads environment variables from a .env file into a Python module. For this project, Python-dotenv was used to retrieve values from a .flaskenv and .env file in order to configure the application. Variables are loaded from the .flaskenv file in order to configure the Flask application by specifying the Python file to run, activate the debugger and specify the server port the application will be running on. For sensitive information such as the database URL and the JWT secret key, the variables are loaded from the .env file.
+
+- Other dependencies
+
+  - There are additional dependencies that will be installed when installing the packages listed above. All packages and dependencies required for this API application have been frozen in the [requirements.txt](src/requirements.txt) file.
 
 ## API Webserver Models & Relationships (R8)
 
@@ -251,6 +269,25 @@ After all the cards are created, they are added to the board in the 'To Do' list
 
 ---
 
-Amazon Web Services. (n.d.) What is PostgreSQL? Retrieved November 11, 2022 from https://aws.amazon.com/rds/postgresql/what-is-postgresql/
+Amazon Web Services. (n.d.) What is PostgreSQL? Retrieved November 11, 2022 from [https://aws.amazon.com/rds/postgresql/what-is-postgresql/](https://aws.amazon.com/rds/postgresql/what-is-postgresql/)
 
-Flask SQLAlchemy. (n.d.). Models and Tables. Retrieved November 11, 2022 from https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/
+Flask SQLAlchemy. (n.d.). Models and Tables. Retrieved November 11, 2022 from [https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/)
+
+Dyouri, A. (2022, March 10). How to Use Flask-SQLAlchemy to Interact with Database in a Flask Application. DigitalOcean. Retrieved November 12, 2022 from [https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
+
+Makai, M. (2022). Object-relational Mappers (ORMs). Full Stack Python. Retrieved November 13, 2022 from [https://www.fullstackpython.com/object-relational-mappers-orms.html](https://www.fullstackpython.com/object-relational-mappers-orms.html)
+
+Liang, M. (2021, March 11). Understandinng Object-Relational Mapping: Pros, Cons, and Types. altexsoft. Retrieved November 13, 2022 from [https://www.altexsoft.com/blog/object-relational-mapping/](https://www.altexsoft.com/blog/object-relational-mapping/)
+
+Hoyos, M. (2018, December 25). What is an ORM and Why You Should Use it. Medium. Retrieved November 13, 2022 from [https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a](
+https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a)
+
+SQLAlchemy. (n.d.). The Python SQL Toolkit and Object Relational Mapper. Retrieved November 13, 2022 from [https://www.sqlalchemy.org/](https://www.sqlalchemy.org/)
+
+
+Marshmallow. (n.d.). marshmallow: simplified object serialization. Retrieved November 13, 2022 from [https://marshmallow.readthedocs.io/en/stable/](https://marshmallow.readthedocs.io/en/stable/)
+
+JWT. (n.d.). Introduction to JSON Web Tokens. Retrieved November 13, 2022 from [https://jwt.io/introduction](https://jwt.io/introduction)
+
+
+Gupta, C. (2022, June 3). Hashing Passwords in Python with BCrypt. GeeksForGeeks. Retrieved November 13, 2022 from [https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/](https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/)
