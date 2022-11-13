@@ -60,15 +60,17 @@
 
     ```DATABASE_URL = postgresql+psycopg2://{user_name}:{password}@127.0.0.1:5432/gametracker```
 
-7. Rename the .env.sample file to .env
+7. In the .env.sample file, set the JWT_SECRET_KEY to any word or string
 
-8. Open the .flaskenv file, and set FLASK_RUN_PORT to any port that is available on your device
+8. Rename the .env.sample file to .env
 
-9. In the terminal, run the following command to create and seed tables in the database for testing purposes:
+9. Open the .flaskenv file, and set FLASK_RUN_PORT to any port that is available on your device
+
+10. In the terminal, run the following command to create and seed tables in the database for testing purposes:
 
     ```flask db drop && flask db create && flask db seed```
 
-10. In the terminal, run the following command to initialize the API webserver:
+11. In the terminal, run the following command to initialize the API webserver:
 
     ```flask run```
 
