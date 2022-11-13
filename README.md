@@ -56,17 +56,19 @@
 
 5. Open PostgreSQL in your terminal and create a new database named 'gametracker', a user with all access to this database, and set a password for this user
 
-6. Open the .env file and add the details above to the DATABASE_URL using the following template, replacing {user_name} and {password} with the ones set in step 5:
+6. Open the .env.sample file and add the details above to the DATABASE_URL using the following template, replacing {user_name} and {password} with the ones set in step 5:
 
     ```DATABASE_URL = postgresql+psycopg2://{user_name}:{password}@127.0.0.1:5432/gametracker```
 
-7. Open the .flaskenv file, and set FLASK_RUN_PORT to any port that is available on your device
+7. Rename the .env.sample file to .env
 
-8. In the terminal, run the following command to create dummy objects in the database for testing purposes:
+8. Open the .flaskenv file, and set FLASK_RUN_PORT to any port that is available on your device
+
+9. In the terminal, run the following command to create and seed tables in the database for testing purposes:
 
     ```flask db drop && flask db create && flask db seed```
 
-9. In the terminal, run the following command to initialize the API webserver:
+10. In the terminal, run the following command to initialize the API webserver:
 
     ```flask run```
 
