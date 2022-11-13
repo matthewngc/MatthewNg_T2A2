@@ -20,7 +20,7 @@
 
 [**API Endpoints (R5)**](#api-endpoints-r5)
 
-[**Entity Relationship Diagram (R6**](#entity-relationship-diagram-erd-r6)
+[**Entity Relationship Diagram (R6)**](#entity-relationship-diagram-erd-r6)
 
 [**Third Party Services & Packages Used (R7)***](#third-party-services--packages-used-r7)
 
@@ -80,7 +80,7 @@ This API application acts as a centralised hub where users can add games and inc
 
 ---
 
-For most individuals who enjoy playing videogames, a common issue is being able to track the progress of the games they have played, particularly for those who prefer to switch between multiple games, or have commitments that make it difficult to finish a game. This leads to an excessive backlog of unfinished games, and most people may choose to give up on completing an unfinished game as they have forgotten about it, or losing interest due to a game's difficulty or a lack of an active community. This API webserver aims to not only provide a quality-of-life benefit to users, but also create a collaborative environment for gaming communities.
+For most individuals who enjoy playing videogames, a common issue is being able to track the progress of the games they have played, particularly for those who prefer to switch between multiple games, or have commitments that make it difficult to finish a game. This leads to an excessive backlog of unfinished games, and most people may choose to give up on completing an unfinished game as they have forgotten about it, or losing interest due to a game's difficulty or a lack of an active community. This API webserver aims to not only provide a quality-of-life benefit to users to improve and enhance their gaming experience, but also create a collaborative environment for gaming communities to share their gaming experiences and history.
 
 ## Why this database system was chosen, and its drawbacks (R3)
 
@@ -101,6 +101,28 @@ Considering all of the above, PostgreSQL was deemed most suitable for this proje
 ## Key Functionalities and Benefits of an ORM (R4)
 
 ---
+
+An Object Relational Mapper (ORM) converts data stored within a relational database table into an object that can be used in object-oriented programming. By using an ORM, developers can manipulate and query a database through the use of a preferred programming language that supports object-oriented programming, and perform CRUD operations without having to directly query the database using a separate querying language.
+
+Using this API webserver as an example, an SQL query to retrieve all records from the Games table with the id of 1 is as follows:
+
+```sql
+SELECT * FROM GAMES
+WHERE game_id = 1
+```
+
+Using an ORM such as SQLAlchemy, the following Python statement can be run to recreate the same query within the database:
+
+```python
+stmt = db.select(Game).filter_by(id=1)
+game = db.session.scalar(stmt)
+```
+
+By applying the above concept, a developer can easily write code to perform any complex or flexible CRUD operations on the database, which is useful in developing a web application.
+
+Using an ORM, a developer can create a web application that can prevent users from interacting directly with the database, as it causes a significant security and privacy risk. Using an ORM to create a layer separating the user and the database, developers can control and restrict the queries that a user is able to call on a database, as well as effectively sanitising the data in order to protect the database from unwanted executable code or queries.
+
+Additionally, the use of an ORM removes the need for boilerplate code, which increases the efficiency of the code, improves overall productivity, and minimizes the memory load of an application. Developers are also able to write code in their own preferred language, which allows the application to remain clean and consistent.
 
 ## API Endpoints (R5)
 
