@@ -36,7 +36,7 @@ def create_app():
 
     # Error handlers
 
-    # Error handler for 404 bad requests errors
+    # Error handler for 400 bad requests errors
     @app.errorhandler(400)
     def bad_request(err):
         return {'error': str(err)}, 400
@@ -51,6 +51,11 @@ def create_app():
     def not_found(err):
         return {'error': str(err)}, 404
     
+    # Error handler for 409 conflict errors
+    @app.errorhandler(409)
+    def conflict(err):
+        return {'error': str(err)}, 409
+
     # Error handler for ValidationErrors
     @app.errorhandler(ValidationError)
     def validation_error(err):

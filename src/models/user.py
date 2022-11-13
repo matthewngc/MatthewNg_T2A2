@@ -27,6 +27,9 @@ class UserSchema(ma.Schema):
     games = fields.List(fields.Nested('GameSchema', only = ['title', 'status']))
     notes = fields.List(fields.Nested('NoteSchema', exclude = ['user']))
 
+    # Validation of email and password fields
+    # Email must be a valid email address
+    # Password must be at least 1 character long
     email = fields.Email()
     password = fields.String(validate= Length(min=1))
 

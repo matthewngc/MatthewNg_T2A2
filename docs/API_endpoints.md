@@ -12,6 +12,10 @@
 
 [Game Routes](#game-routes)
 
+[Error Handling Routes](#error-handling-routes)
+
+[Return to README](../README.md)
+
 ---
 
 ## Auth Routes
@@ -42,8 +46,6 @@
 
 - Response Body:
 
-Successfully registered user (status code: 201):
-
 ```json
 {
     "message": "You are now registered!",
@@ -56,22 +58,6 @@ Successfully registered user (status code: 201):
         "games": [],
         "notes": []
     }
-}
-```
-
-Email already in use (status code: 409):
-
-```json
-{
-    "error": "Email address already in use"
-}
-```
-
-No email or password provided (status code: 400)
-
-```json
-{
-    "error": "The field 'email/password' is required."
 }
 ```
 
@@ -98,22 +84,12 @@ No email or password provided (status code: 400)
 
 - Response Body:
 
-Successfully logged in the user (status code: 200):
-
 ```json
 {
     "message": "You have successfully logged in!",
     "email": "test@abc.com",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY2ODMyNDg4MywianRpIjoiNTU1NzZhYmYtOWE0OS00ZjA5LWE4NDItMGU2ZDhmMTA2NzQwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjQiLCJuYmYiOjE2NjgzMjQ4ODMsImV4cCI6MTY2ODQxMTI4M30._zK4sbrjHG9twm18v7Oi1qLSyZMVcDS6-QOgBQVhQEY",
     "is_admin": false
-}
-```
-
-Incorrect email or password (status code: 401):
-
-```json
-{
-    "error": "Invalid email or password - please try again."
 }
 ```
 
@@ -133,7 +109,7 @@ Incorrect email or password (status code: 401):
 
 - Authentication: jwt_required
 
-- Authorization: Bearer token
+- Authorization: User owner only (get_jwt_identity)
 
 - Request Body: none
 
@@ -142,8 +118,8 @@ Incorrect email or password (status code: 401):
 ```json
 {
   "id": 3,
-  "name": "James White",
-  "email": "jameswhite@abc.com",
+  "name": "Anthony Quinn",
+  "email": "antoquinn@abc.com",
   "date_joined": "2021-05-23",
   "is_admin": false,
   "games": [
@@ -181,14 +157,14 @@ Incorrect email or password (status code: 401):
 
 - Authentication: jwt_required
 
-- Authorization: Bearer token only
+- Authorization: User owner only (get_jwt_identity)
 
 - Request Body:
 
 ```json
 {
-    "name": "James Anthony White",
-    "email": "jamesanthonywhite@gmail.com",
+    "name": "Anthony Quinnson",
+    "email": "antoquinnson@gmail.com",
     "password": "password123"
 }
 ```
@@ -200,8 +176,8 @@ Incorrect email or password (status code: 401):
     "message": "You have updated your details!",
     "user": {
         "id": 3,
-        "name": "James Anthony White",
-        "email": "jamesanthonywhite@gmail.com",
+        "name": "Anthony Quinnson",
+        "email": "Anthony Quinnson@gmail.com",
         "date_joined": "2021-05-23",
         "is_admin": false,
         "games": [
@@ -309,8 +285,8 @@ Incorrect email or password (status code: 401):
     },
     {
         "id": 2,
-        "name": "Cameron Johnson",
-        "email": "camjohnson@abc.com",
+        "name": "Timothy Newman",
+        "email": "timothynewman@abc.com",
         "date_joined": "2020-10-10",
         "is_admin": false,
         "games": [
@@ -353,8 +329,8 @@ Incorrect email or password (status code: 401):
     },
     {
         "id": 3,
-        "name": "James Anthony White",
-        "email": "jamesanthonywhite@gmail.com",
+        "name": "Anthony Quinnson",
+        "email": "antoquinnson@gmail.com",
         "date_joined": "2021-05-23",
         "is_admin": false,
         "games": [
@@ -402,8 +378,8 @@ Incorrect email or password (status code: 401):
 ```json
 {
     "id": 2,
-    "name": "Cameron Johnson",
-    "email": "camjohnson@abc.com",
+    "name": "Timothy Newman",
+    "email": "timothynewman@abc.com",
     "date_joined": "2020-10-10",
     "is_admin": false,
     "games": [
@@ -453,7 +429,7 @@ Incorrect email or password (status code: 401):
 
 ```json
 {
-    "email": "camjohnson@gmail.com",
+    "email": "timothynewman@gmail.com",
 }
 ```
 
@@ -464,8 +440,8 @@ Incorrect email or password (status code: 401):
     "message": "You have updated this user's details!",
     "user": {
         "id": 2,
-        "name": "Cameron Johnson",
-        "email": "camjohnson@gmail.com",
+        "name": "Timothy Newman",
+        "email": "timothynewman@gmail.com",
         "date_joined": "2020-10-10",
         "is_admin": false,
         "games": [
@@ -558,8 +534,8 @@ Incorrect email or password (status code: 401):
         "date_tracked": "2022-11-13",
         "status": "Playing",
         "user": {
-            "name": "James Anthony White",
-            "email": "jamesanthonywhite@gmail.com"
+            "name": "Anthony Quinnson",
+            "email": "antoquinnson@gmail.com"
         },
         "notes": [
             {
@@ -568,8 +544,8 @@ Incorrect email or password (status code: 401):
                 "date": "2022-11-13",
                 "tag": "Progress",
                 "user": {
-                    "name": "James Anthony White",
-                    "email": "jamesanthonywhite@gmail.com"
+                    "name": "Anthony Quinnson",
+                    "email": "antoquinnson@gmail.com"
                 }
             }
         ]
@@ -583,8 +559,8 @@ Incorrect email or password (status code: 401):
         "date_tracked": "2022-11-13",
         "status": "Completed",
         "user": {
-            "name": "Cameron Johnson",
-            "email": "camjohnson@gmail.com"
+            "name": "Timothy Newman",
+            "email": "timothynewman@gmail.com"
         },
         "notes": [
             {
@@ -593,8 +569,8 @@ Incorrect email or password (status code: 401):
                 "date": "2022-11-13",
                 "tag": "Review",
                 "user": {
-                    "name": "Cameron Johnson",
-                    "email": "camjohnson@gmail.com"
+                    "name": "Timothy Newman",
+                    "email": "timothynewman@gmail.com"
                 }
             }
         ]
@@ -608,8 +584,8 @@ Incorrect email or password (status code: 401):
         "date_tracked": "2022-11-13",
         "status": "Want to Play",
         "user": {
-            "name": "James Anthony White",
-            "email": "jamesanthonywhite@gmail.com"
+            "name": "Anthony Quinnson",
+            "email": "antoquinnson@gmail.com"
         },
         "notes": [
             {
@@ -618,8 +594,8 @@ Incorrect email or password (status code: 401):
                 "date": "2022-11-13",
                 "tag": "Comment",
                 "user": {
-                    "name": "Cameron Johnson",
-                    "email": "camjohnson@gmail.com"
+                    "name": "Timothy Newman",
+                    "email": "timothynewman@gmail.com"
                 }
             }
         ]
@@ -653,8 +629,8 @@ Incorrect email or password (status code: 401):
     "date_tracked": "2022-11-13",
     "status": "Completed",
     "user": {
-        "name": "Cameron Johnson",
-        "email": "camjohnson@gmail.com"
+        "name": "Timothy Newman",
+        "email": "timothynewman@gmail.com"
     },
     "notes": [
         {
@@ -663,8 +639,8 @@ Incorrect email or password (status code: 401):
             "date": "2022-11-13",
             "tag": "Review",
             "user": {
-                "name": "Cameron Johnson",
-                "email": "camjohnson@gmail.com"
+                "name": "Timothy Newman",
+                "email": "timothynewman@gmail.com"
             }
         }
     ]
@@ -709,8 +685,8 @@ Incorrect email or password (status code: 401):
         "date_tracked": "2022-11-13",
         "status": "Currently Playing",
         "user": {
-            "name": "James Anthony White",
-            "email": "jamesanthonywhite@gmail.com"
+            "name": "Anthony Quinnson",
+            "email": "antoquinnson@gmail.com"
         },
         "notes": []
     }
@@ -727,7 +703,7 @@ Incorrect email or password (status code: 401):
 
 - Authentication: jwt_required
 
-- Authorization: Bearer token or Admin only
+- Authorization: User owner i.e. user who added the game (get_jwt_identity) or Admin only
 
 - Request Body:
 
@@ -751,8 +727,8 @@ Incorrect email or password (status code: 401):
         "date_tracked": "2022-11-13",
         "status": "Completed",
         "user": {
-            "name": "James Anthony White",
-            "email": "jamesanthonywhite@gmail.com"
+            "name": "Anthony Quinnson",
+            "email": "antoquinnson@gmail.com"
         },
         "notes": []
     }
@@ -769,7 +745,7 @@ Incorrect email or password (status code: 401):
 
 - Authentication: jwt_required
 
-- Authorization: Bearer token or Admin only
+- Authorization: User owner i.e. user who added the game (get_jwt_identity) or Admin only
 
 - Request Body: none
 
@@ -804,8 +780,8 @@ Incorrect email or password (status code: 401):
     "date": "2022-11-13",
     "tag": "Progress",
     "user": {
-        "name": "James Anthony White",
-        "email": "jamesanthonywhite@gmail.com"
+        "name": "Anthony Quinnson",
+        "email": "antoquinnson@gmail.com"
     }
 }
 ```
@@ -837,8 +813,8 @@ Incorrect email or password (status code: 401):
         "status": "Want to Play"
     },
     "user": {
-        "name": "Cameron Johnson",
-        "email": "camjohnson@gmail.com"
+        "name": "Timothy Newman",
+        "email": "timothynewman@gmail.com"
     }
 }
 ```
@@ -875,8 +851,8 @@ Incorrect email or password (status code: 401):
         "date": "2022-11-13",
         "tag": "Reminder",
         "user": {
-            "name": "James Anthony White",
-            "email": "jamesanthonywhite@gmail.com"
+            "name": "Anthony Quinnson",
+            "email": "antoquinnson@gmail.com"
         }
     }
 }
@@ -892,7 +868,7 @@ Incorrect email or password (status code: 401):
 
 - Authentication: jwt_required
 
-- Authorization: Bearer token or Admin only
+- Authorization: User owner i.e. user who added the note (get_jwt_identity) or Admin only
 
 - Request Body:
 
@@ -917,8 +893,8 @@ Incorrect email or password (status code: 401):
             "status": "Playing"
         },
         "user": {
-            "name": "James Anthony White",
-            "email": "jamesanthonywhite@gmail.com"
+            "name": "Anthony Quinnson",
+            "email": "antoquinnson@gmail.com"
         }
     }
 }
@@ -934,7 +910,7 @@ Incorrect email or password (status code: 401):
 
 - Authentication: jwt_required
 
-- Authorization: Bearer token or Admin only
+- Authorization: User owner i.e. user who added the note (get_jwt_identity) or Admin only
 
 - Request Body: none
 
@@ -942,6 +918,78 @@ Incorrect email or password (status code: 401):
 
 ```json
 {
-    "message": "This comment has been deleted."
+    "message": "This note has been deleted."
 }
 ```
+
+---
+
+## Error Handling Routes
+
+---
+
+### **Response Status Code 400: Bad Request**
+
+ValidationError:
+
+User attempts to register with an invalid email:
+
+```json
+{
+    "error": "{'email': ['Not a valid email address.']}"
+}
+```
+
+KeyError
+
+User attempts to register without providing an email or password:
+
+```json
+{
+    "error": "The field 'email/password' is required."
+}
+```
+
+### **Response Status Code 401: Unauthorized**
+
+User attempts to login with incorrect email or password (status code: 401):
+
+```json
+{
+    "error": "Invalid email or password - please try again."
+}
+```
+
+No admin authorization to perform request:
+
+```json
+{
+    "error": "You do not have the appropriate permissions to perform this action."
+}
+```
+
+### **Response Status Code 404: Not Found**
+
+User attempts to retrieve a game that does not exist:
+
+```json
+{
+    "error": "Game not found with id 7"
+}
+```
+
+### **Response Status Code 409: Conflict**
+
+User attempts to register with an email already in use:
+
+```json
+{
+    "error": "Email address already in use"
+}
+```
+
+[Table of Contents](#table-of-contents)
+
+[Return to README](../README.md)
+
+---

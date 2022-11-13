@@ -79,7 +79,7 @@ def update_game(game_id):
     # Check that the user making the change is the owner of the game OR an admin is making a change
     if game.user_id == int(get_jwt_identity()) or authorize():
         # Load JSON data into schema for validation
-        data = GameSchema().load(request.json)
+        data = GameSchema().load(request.json, partial = True)
         # Update fields where provided
         if request.json.get('title'):
             game.title = data['title']
@@ -90,7 +90,7 @@ def update_game(game_id):
         if request.json.get('platform'):
             game.platform = data['platform']
         if request.json.get('status'):
-            game.status = data['status'] or game.status
+            game.status = data['status']
         # Commit changes to the database
         db.session.commit()
         # Show confirmation message and updated game data
@@ -104,7 +104,7 @@ def update_game(game_id):
 @games_bp.route('/<int:game_id>/', methods=['DELETE'])
 # Request JWT token
 @jwt_required()
-def delete_one_card(game_id):
+def delete_one_game(game_id):
     # Select query to retrieve game with game_id from database
     stmt = db.select(Game).filter_by(id = game_id)
     game = db.session.scalar(stmt)
@@ -134,7 +134,7 @@ def all_notes_on_game(game_id):
     notes = db.session.scalars(stmt)
     # If no notes exist under this game id, return error message
     if not notes:
-        return {'message': f'No notes found under {game.title}'}
+        return {'message': f'No notes found under {game.title}'}, 404
     # Return all notes under this game id
     return NoteSchema(many=True, exclude = ['game']).dump(notes)
 
@@ -147,7 +147,7 @@ def get_one_note(note_id):
     note = db.session.scalar(stmt)
     # If the note does not exist, return error message
     if not note:
-        return {'error': f'Note not found with id {note_id}'}
+        return {'error': f'Note not found with id {note_id}'}, 404
     # Otherwise return the note with this note id
     else:
         return NoteSchema().dump(note)
@@ -192,7 +192,7 @@ def edit_note(note_id):
     note = db.session.scalar(stmt)
     # if the note with this id does not exist, return error message
     if not note:
-        return {'error': f'Note not found with id {note_id}'}
+        return {'error': f'Note not found with id {note_id}'}, 404
     # Check that the user making the change is the owner of the note or an admin
     if note.user_id == int(get_jwt_identity()) or authorize():
         # Load JSON data into schema for validation
@@ -219,10 +219,10 @@ def delete_note(note_id):
     note = db.session.scalar(stmt)
     # If the note with this id does not exist, return error message
     if not note:
-        return {'error': f'No comment found with id {note_id}'}
+        return {'error': f'No note found with id {note_id}'}, 404
     # Check that the user making the change is the owner of the note or an admin    
     if note.user_id == int(get_jwt_identity()) or authorize():
         db.session.delete(note)
         db.session.commit()
-        return {'message': 'This comment has been deleted.'}
+        return {'message': 'This note has been deleted.'}
 

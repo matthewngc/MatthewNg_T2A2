@@ -9,7 +9,6 @@ auth_bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
 #================================================= AUTHENTICATION =================================================
 
-
 # ~~~~~~~ Register a new user ~~~~~~~
 
 @auth_bp.route('/register/', methods=['POST'])

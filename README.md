@@ -78,7 +78,7 @@
 
 The purpose of this API Webserver is to allow users to track and record the videogames that they have played, are currently playing or would like to play. Specifically, the problem to be addressed with this API application is the difficulty of managing gaming backlogs and tracking gaming progress for individuals who prefer to play multiple games at once, or like to temporarily leave games unfinished and continue at a later date.
 
-This API application acts as a centralised hub where users can add games and include a tag to mark them as completed, currently in progress, dropped, shelved (temporarily), or plan to play, which allows them to easily track their game collection and history. Additionally, users can also add notes under each game as reviews, story progress, quest reminders and other information specific to these games. Overall, this API webserver provides an effective solution to game progress management.
+This API application acts as a centralised hub where users can add games and include a tag to mark them as completed, currently in progress, dropped, shelved (temporarily), or plan to play, which allows them to easily track their game collection and history. Additionally, users can also add notes under each game as reviews, story progress, quest reminders and other information specific to these games. Overall, this API webserver provides an effective solution to game management and aims to maximize the user's overall gaming experience by offering a simple yet effective platform to manage and work through their gaming backlog.
 
 ---
 
@@ -188,7 +188,7 @@ This projects utilises the following third party services and PyPI packages:
 
 - Other dependencies
 
-  - There are additional dependencies that will be installed when installing the packages listed above. All packages and dependencies required for this API application have been frozen in the [requirements.txt](src/requirements.txt) file.
+  - There are additional dependencies that will be installed when installing the packages listed above. All packages and dependencies required for this API application have been frozen in the [requirements.txt](src/requirements.txt) file. For further instructions on installing packages for this application, please see [Installation Instructions](#installation-instructions).
 
 ---
 
@@ -297,21 +297,22 @@ After all the cards are created, they are added to the board in the 'To Do' list
 
 Amazon Web Services. (n.d.) What is PostgreSQL? Retrieved November 11, 2022 from [https://aws.amazon.com/rds/postgresql/what-is-postgresql/](https://aws.amazon.com/rds/postgresql/what-is-postgresql/)
 
-Flask SQLAlchemy. (n.d.). Models and Tables. Retrieved November 11, 2022 from [https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/)
-
 Dyouri, A. (2022, March 10). How to Use Flask-SQLAlchemy to Interact with Database in a Flask Application. DigitalOcean. Retrieved November 12, 2022 from [https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3](https://www.digitalocean.com/community/tutorials/how-to-make-a-web-application-using-flask-in-python-3)
 
-Makai, M. (2022). Object-relational Mappers (ORMs). Full Stack Python. Retrieved November 13, 2022 from [https://www.fullstackpython.com/object-relational-mappers-orms.html](https://www.fullstackpython.com/object-relational-mappers-orms.html)
+Flask SQLAlchemy. (n.d.). Models and Tables. Retrieved November 11, 2022 from [https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/models/)
 
-Liang, M. (2021, March 11). Understandinng Object-Relational Mapping: Pros, Cons, and Types. altexsoft. Retrieved November 13, 2022 from [https://www.altexsoft.com/blog/object-relational-mapping/](https://www.altexsoft.com/blog/object-relational-mapping/)
+Gupta, C. (2022, June 3). Hashing Passwords in Python with BCrypt. GeeksForGeeks. Retrieved November 13, 2022 from [https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/](https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/)
 
-Hoyos, M. (2018, December 25). What is an ORM and Why You Should Use it. Medium. Retrieved November 13, 2022 from [https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a](
-https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a)
-
-SQLAlchemy. (n.d.). The Python SQL Toolkit and Object Relational Mapper. Retrieved November 13, 2022 from [https://www.sqlalchemy.org/](https://www.sqlalchemy.org/)
-
-Marshmallow. (n.d.). marshmallow: simplified object serialization. Retrieved November 13, 2022 from [https://marshmallow.readthedocs.io/en/stable/](https://marshmallow.readthedocs.io/en/stable/)
+Hoyos, M. (2018, December 25). What is an ORM and Why You Should Use it. Medium. Retrieved November 13, 2022 from [https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a](https://blog.bitsrc.io/what-is-an-orm-and-why-you-should-use-it-b2b6f75f5e2a)
 
 JWT. (n.d.). Introduction to JSON Web Tokens. Retrieved November 13, 2022 from [https://jwt.io/introduction](https://jwt.io/introduction)
 
-Gupta, C. (2022, June 3). Hashing Passwords in Python with BCrypt. GeeksForGeeks. Retrieved November 13, 2022 from [https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/](https://www.geeksforgeeks.org/hashing-passwords-in-python-with-bcrypt/)
+Liang, M. (2021, March 11). Understandinng Object-Relational Mapping: Pros, Cons, and Types. altexsoft. Retrieved November 13, 2022 from [https://www.altexsoft.com/blog/object-relational-mapping/](https://www.altexsoft.com/blog/object-relational-mapping/)
+
+Makai, M. (2022). Object-relational Mappers (ORMs). Full Stack Python. Retrieved November 13, 2022 from [https://www.fullstackpython.com/object-relational-mappers-orms.html](https://www.fullstackpython.com/object-relational-mappers-orms.html)
+
+Marshmallow. (n.d.). marshmallow: simplified object serialization. Retrieved November 13, 2022 from [https://marshmallow.readthedocs.io/en/stable/](https://marshmallow.readthedocs.io/en/stable/)
+
+SQLAlchemy. (n.d.). The Python SQL Toolkit and Object Relational Mapper. Retrieved November 13, 2022 from [https://www.sqlalchemy.org/](https://www.sqlalchemy.org/)
+
+---

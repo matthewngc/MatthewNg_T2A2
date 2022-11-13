@@ -7,18 +7,24 @@ from datetime import date
 
 db_commands = Blueprint('db', __name__)
 
+#================================================= CUSTOM CLI COMMANDS =================================================
+
+# CLI command to create tables as per the User, Game and Note models in the database
 @db_commands.cli.command('create')
 def create_db():
     db.create_all()
     print("Tables created")
 
+# CLI command to drop all existing tables in the database
 @db_commands.cli.command('drop')
 def drop_db():
     db.drop_all()
     print("Tables dropped")
 
+# CLI command to seed the created tables with records for testing purposes
 @db_commands.cli.command('seed')
 def seed_db():
+    # Create list of User classes with fields to be seeded into the User table
     users = [
         User(
             email = 'admin@gametracker.com',
@@ -26,22 +32,24 @@ def seed_db():
             is_admin = True
         ),
         User(
-            name = 'Cameron Johnson',
-            email = 'camjohnson@abc.com',
+            name = 'Timothy Newman',
+            email = 'timmynewman@abc.com',
             password = bcrypt.generate_password_hash('bballxyz').decode('utf-8'),
             date_joined = '10/10/2020'
         ),
         User(
-            name = 'James White',
-            email = 'jameswhite@abc.com',
+            name = 'Anthony Quinn',
+            email = 'antoquinn@abc.com',
             password = bcrypt.generate_password_hash('password').decode('utf-8'),
             date_joined = '5/23/2021'
         )
     ]
 
+    # Add user instances to the database and commit changes
     db.session.add_all(users)
     db.session.commit()
 
+    # Create list of Game classes with fields to be seeded into the Game table
     games = [
         Game(
             title = 'God of War Ragnarok',
@@ -72,10 +80,11 @@ def seed_db():
         )
     ]
 
-
+    # Add game instances to the database and commit changes
     db.session.add_all(games)
     db.session.commit()
 
+    # Create list of Note classes with fields to be seeded into the Note table
     notes = [
         Note(
             description = 'This is a good game',
@@ -100,6 +109,7 @@ def seed_db():
         )
     ]
 
+    # Add note instances to the database and commit changes
     db.session.add_all(notes)
     db.session.commit()
     print("Table seeded")
